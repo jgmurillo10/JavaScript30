@@ -70,8 +70,12 @@
     audio.currentTime = 0;
     audio.play();
   }
+  let clicked = function(e) {
+    console.log(e);
+  }
   let keys = Array.from(document.querySelectorAll('.key'));
   keys.forEach(d => d.addEventListener('transitionend', removeTransition));
+  keys.forEach(d => d.addEventListener('click', clicked));
   window.addEventListener('keydown', playSound )
 </script>
 

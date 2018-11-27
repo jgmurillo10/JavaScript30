@@ -62,12 +62,53 @@
       background: black;
       position: absolute;
       top: 50%;
+      transform: rotate(90deg);
+      transform-origin: 100%;
+    }
+
+    .hand.min-hand {
+      opacity: 0.8;
+      height: 4px;
+      background-color: black;
+    }
+
+    .hand.second-hand {
+      opacity: 0.5;
+      height: 2px;
+      width: 50%;
+      background-color: white;
     }
 
   </style>
-
   <script>
+    let factor_h = 360/12.0;
+    let factor_m = 360/60.0;
+    let setHour = function(h, m, s) {
+      let h_hand = document.querySelector('div.hour-hand');
+      let m_hand = document.querySelector('div.min-hand');
+      let s_hand = document.querySelector('div.second-hand');
 
+      let h_angle = h*factor_h + 90;
+      let m_angle = m*factor_m + 90;
+      let s_angle = s*factor_m + 90;
+
+      h_hand.style.transform = `rotate(${h_angle}deg)`;
+      m_hand.style.transform = `rotate(${m_angle}deg)`;
+      s_hand.style.transform = `rotate(${s_angle}deg)`;
+
+    }
+    
+    let printTime = function(time) {
+      console.log('printing time');
+      let date = new Date();
+      let h = date.getHours();
+      let m = date.getMinutes();
+      let s = date.getSeconds();
+      setHour(h, m, s);
+      setTimeout(printTime, 1000);
+    }
+    
+    printTime();
 
   </script>
 </body>
