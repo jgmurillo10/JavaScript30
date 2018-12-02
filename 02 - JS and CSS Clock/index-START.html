@@ -62,8 +62,10 @@
       background: black;
       position: absolute;
       top: 50%;
-      transform: rotate(90deg);
       transform-origin: 100%;
+      transform: rotate(90deg);
+      transition: all 0.05s;
+      transition-timing-function: cubic-bezier(0.1, 2.7, 0.58, 1);
     }
 
     .hand.min-hand {
@@ -81,34 +83,29 @@
 
   </style>
   <script>
-    let factor_h = 360/12.0;
-    let factor_m = 360/60.0;
-    let setHour = function(h, m, s) {
-      let h_hand = document.querySelector('div.hour-hand');
-      let m_hand = document.querySelector('div.min-hand');
-      let s_hand = document.querySelector('div.second-hand');
+    const h_hand = document.querySelector('div.hour-hand');
+    const m_hand = document.querySelector('div.min-hand');
+    const s_hand = document.querySelector('div.second-hand');
+    const factor_h = 360/12.0;
+    const factor_m = 360/60.0;
 
+    const setHour = function(h, m, s) {
       let h_angle = h*factor_h + 90;
       let m_angle = m*factor_m + 90;
       let s_angle = s*factor_m + 90;
-
       h_hand.style.transform = `rotate(${h_angle}deg)`;
       m_hand.style.transform = `rotate(${m_angle}deg)`;
       s_hand.style.transform = `rotate(${s_angle}deg)`;
-
     }
-    
     let printTime = function(time) {
-      console.log('printing time');
       let date = new Date();
       let h = date.getHours();
       let m = date.getMinutes();
       let s = date.getSeconds();
       setHour(h, m, s);
-      setTimeout(printTime, 1000);
     }
     
-    printTime();
+    setInterval(printTime, 1000);
 
   </script>
 </body>
