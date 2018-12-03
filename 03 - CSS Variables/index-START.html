@@ -21,7 +21,11 @@
   <img src="https://source.unsplash.com/7bwQXzbF6KE/800x500">
 
   <style>
-
+    :root {
+      --base: #ffc600;
+      --spacing: 10px;
+      --blur: 10px;
+    } 
     /*
       misc styles, nothing to do with CSS variables
     */
@@ -42,9 +46,37 @@
     input {
       width: 100px;
     }
+
+    img {
+      padding: var(--spacing);
+      background-color: var(--base);
+      filter: blur(var(--blur));
+    }
+
+    .h1 {
+      color: var(--base);
+    }
   </style>
 
   <script>
+    // My own implementation
+    // const spacing = document.getElementById("spacing");
+    // const blur = document.getElementById("blur");
+    // const base = document.getElementById("base");
+    // const controls = [spacing, blur, base];
+    // const controlChanged = function(e) {
+    //   const suffix = e.target.dataset.sizing || '';
+    //   document.documentElement.style.setProperty('--' + e.target.id , e.target.value + suffix);
+    // }
+    // controls.forEach(d => d.onchange = controlChanged);
+    // Wes bos implementation
+    const inputs = document.querySelectorAll('.controls input');
+    const handleUpdate = function() {
+      const suffix = this.dataset.sizing || '';
+      document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix);
+    }
+    inputs.forEach(d => d.addEventListener('change', handleUpdate));
+    inputs.forEach(d => d.addEventListener('mousemove', handleUpdate));
   </script>
 
 </body>
